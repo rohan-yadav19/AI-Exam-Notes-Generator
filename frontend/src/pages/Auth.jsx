@@ -1,8 +1,34 @@
 import React from "react";
 import { motion } from "motion/react";
 import { FcGoogle } from "react-icons/fc";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../utils/firebase.js";
+import axios from "axios";
+import { serverUrl } from "../App";
+//import { useDispatch } from "react-redux";
 
 function Auth() {
+  //const dispatch = useDispatch();
+  const handleGoogleAuth = async () => {
+    try {
+      const response = await signInWithPopup(auth, provider);
+      console.log(response);
+      const User = response.user;
+      const name = User.displayName;
+      const email = User.email;
+      const result = await axios.post(
+        serverUrl + "/api/auth/google",
+        { name, email },
+        {
+          withCredentials: true,
+        },
+      );
+      console.log(result.data);
+      //dispatch(setUserData(result.data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <div className=" min-h-screen overflow-hidden bg-white text-black px-8">
       <motion.header
@@ -30,6 +56,7 @@ function Auth() {
             AI Notes
           </h1>
           <motion.button
+            onClick={handleGoogleAuth}
             whileHover={{
               y: -10,
               rotateX: 8,
@@ -59,9 +86,56 @@ function Auth() {
           </p>
         </motion.div>
         {/* Right content */}
-        <motion.div></motion.div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+          <Feature
+            icon="🎁"
+            title="50 Free Credits"
+            des="Start with 50 credits to generate notes without paying."
+          />
+          <Feature
+            icon="📘"
+            title="Exam Notes"
+            des="High-yield, revision-ready exam-oriented notes."
+          />
+          <Feature
+            icon="📂"
+            title="Project Notes"
+            des="Well-structured documentation for assignments & projects."
+          />
+          <Feature
+            icon="📊"
+            title="Charts & Graphs"
+            des="Auto-generated diagrams, charts and flow graphs."
+          />
+          <Feature
+            icon="⬇️"
+            title="Free PDF Download"
+            des="Download clean, printable PDFs instantly."
+          />
+        </div>
       </main>
     </div>
+  );
+}
+function Feature({ icon, title, des }) {
+  return (
+    <motion.div
+      whileHover={{ y: -12, rotateX: 8, rotateY: -8, scale: 1.05 }}
+      transition={{ type: "spring", stiffness: 200, damping: 18 }}
+      className="relative rounded-2xl p-6
+        bg-gradient-to-br from-black/90 via-black/80 to-black/90
+        backdrop-blur-2xl
+        border border-white/10
+        shadow-[0_30px_80px_rgba(0,0,0,0.7)]
+        text-white"
+      style={{ transformStyle: "preserve-3d" }}
+    >
+      <div className="relative z-10" style={{ transform: "translateZ(30px)" }}>
+        <div className="text-4xl mb-3">{icon}</div>
+        <h3 className="text-lg font-semibold mb-2">{title}</h3>
+        <p className="text-gray-300 text-sm leading-relaxed">{des}</p>
+      </div>
+    </motion.div>
   );
 }
 
