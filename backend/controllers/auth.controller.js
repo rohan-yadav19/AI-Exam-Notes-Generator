@@ -1,5 +1,5 @@
 import UserModel from "../models/userModel.js";
-import { getToken } from "../utils/token.js";
+//import { getToken } from "../utils/token.js";
 
 export const googleAuth = async (req, res) => {
   try {
