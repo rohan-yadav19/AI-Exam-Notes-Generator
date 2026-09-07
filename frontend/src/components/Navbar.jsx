@@ -94,6 +94,7 @@ function Navbar() {
                 <button
                   onClick={() => {
                     setShowCredits(false);
+                    navigate("/pricing");
                   }}
                   className=" w-full py-2 rounded-lg
                       bg-gradient-to-br from-white to-gray-200
@@ -144,7 +145,7 @@ function Navbar() {
                   text="History"
                   onClick={() => {
                     setShowProfile(false);
-                    //navigate("/history");
+                    navigate("/history");
                   }}
                 />
                 <div className="h-px bg-white/10 mx-3" />
