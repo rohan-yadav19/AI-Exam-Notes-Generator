@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import TopicForm from "../components/TopicForm";
 
-//mport Sidebar from "../components/Sidebar";
-//import FinalResult from "../components/FinalResult";
+import Sidebar from "../components/Sidebar";
+import FinalResult from "../components/FinalResult";
 function Notes() {
   const navigate = useNavigate();
   const { userData } = useSelector((state) => state.user);
@@ -86,7 +86,7 @@ function Notes() {
         />
       </motion.div>
 
-      {/* {loading && (
+      {loading && (
         <motion.div
           animate={{ opacity: [0.4, 1, 0.4] }}
           transition={{ repeat: Infinity, duration: 1.2 }}
@@ -98,7 +98,7 @@ function Notes() {
 
       {error && (
         <div className="mb-6 text-center text-red-600 font-medium">{error}</div>
-      )} */}
+      )}
 
       {!result && (
         <motion.div
@@ -118,7 +118,7 @@ function Notes() {
         </motion.div>
       )}
 
-      {/* {result && (
+      {result && (
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -141,7 +141,7 @@ function Notes() {
             <FinalResult result={result} />
           </div>
         </motion.div>
-      )} */}
+      )}
     </div>
   );
 }
