@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import userRouter from "./routes/user.route.js";
 import notesRouter from "./routes/generate.route.js";
+import pdfRouter from "./routes/pdf.route.js";
 import creditRouter from "./routes/credits.route.js";
 import { stripeWebhook } from "./controllers/credits.controller.js";
 dotenv.config();
@@ -33,6 +34,7 @@ app.get("/", (req, res) => {
 app.use("/api/auth", authRouter);
 app.use("/api/user", userRouter);
 app.use("/api/notes", notesRouter);
+app.use("/api/pdf", pdfRouter);
 app.use("/api/credit", creditRouter);
 
 app.listen(PORT, () => {
